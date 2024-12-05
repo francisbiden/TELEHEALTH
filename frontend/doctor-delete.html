@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Doctor account</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+    
+<div class="form-container">
+
+        <form id="deleteDoctorForm">
+            <h2>Delete Doctor Profile</h2>
+            <label for="doctor_id">Doctor ID:</label>
+            <input type="text" id="doctor_id" name="doctor_id" required>
+        
+            <button type="submit">Delete Doctor</button>
+        </form>
+</div>     
+<script>
+document.getElementById('deleteDoctorForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const data = { 
+        doctor_id: document.getElementById('doctor_id').value };
+
+        try{   
+        const response = await fetch('/doctor/delete/doctorId', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        if (response.ok) {
+                        alert('Doctor deleted successfully');
+                    } else {
+                        alert('Error deleting doctor');
+                    }
+    } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
+ 
+  
+});
+</script>
+</body>
+</html>

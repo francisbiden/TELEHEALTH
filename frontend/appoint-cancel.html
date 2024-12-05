@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patients appointment booking</title>
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+
+    
+    <div class="form-container">
+    
+        <form id="cancelAppointmentForm">
+            <h2>Cancel Appointment</h2>
+            <label for="appointment_id">Appointment ID:</label>
+            <input type="text" id="appointment_id" name="appointment_id" required>
+        
+            <button type="submit">Cancel Appointment</button>
+        </form>
+       
+            
+    </div>
+    <script>
+        document.getElementById('cancelAppointmentForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const data = { 
+                appointment_id: document.getElementById('appointment_id').value };
+        
+                try {
+            const response = await fetch('/appointments/cancel/:appointmentId', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data),
+            });
+        
+            if (response.ok) {
+                    alert('Appointment canceled successfully');
+                } else {
+                    alert('Error canceling the  appointment');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+    </script>
+  </html>

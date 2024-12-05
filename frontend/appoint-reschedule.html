@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patients appointment booking</title>
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+
+    
+    <div class="form-container">
+        <form id="rescheduleAppointmentForm">
+            <h2>Reschedule Appointment</h2>
+            <label for="appointment_id">Appointment ID:</label>
+            <input type="text" id="appointment_id" name="appointment_id" required>
+        
+            <label for="new_date">New Date:</label>
+            <input type="date" id="new_date" name="new_appointment_date" required>
+        
+            <label for="new_time">New Time:</label>
+            <input type="time" id="new_time" name="new_appointment_time" required>
+        
+            <button type="submit">Reschedule Appointment</button>
+        </form>
+            
+    </div>
+    <script>
+        document.getElementById('rescheduleAppointmentForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const data = {
+                appointment_id: document.getElementById('appointment_id').value,
+                new_date: document.getElementById('new_date').value,
+                new_time: document.getElementById('new_time').value
+            };
+        
+            try {
+            const response = await fetch('/appointments/reschedule/:appointmentId', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data),
+            });
+        
+            if (response.ok) {
+                    alert('Appointment rescheduled successfully');
+                } else {
+                    alert('Error rescheduling appointment');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+        </script>
+
+  </body>
+  </html>

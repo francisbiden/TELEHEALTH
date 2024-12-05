@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Login</title>
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+
+    
+  <div class="form-container">
+  
+    <!-- Patient Logout Form -->
+    <h2>Patient Logout</h2>
+    
+    <form id="logoutForm">
+      <button type="submit">Logout</button>
+  </form>
+
+
+  </div>    
+  <script>
+ 
+    // Handle logout
+    document.getElementById('logoutForm').addEventListener('submit', async function (event) {
+      event.preventDefault(); // Prevent the default form submission
+      const formData ={
+        loginEmail : document.getElementById('loginEmail').value,
+        loginPassword : document.getElementById('loginPassword').value
+      };
+    
+      try {
+        const response = await fetch('/auth/logout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData),
+        });
+    
+        if (response.ok) {
+                alert('Patient logged out successfully');
+            } else {
+                alert('Error logging out patient');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        }
+    });
+  
+  </script>
+    
+    
+
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Doctor's profile</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+    
+<div class="form-container">
+    <form id="updateDoctorForm">
+        <h2>Update Doctor Profile</h2>
+        <label for="name">Doctor's Name:</label>
+        <input type="text" id="name" name="name" required>
+    
+        <label for="specialization">Specialization:</label>
+        <input type="text" id="specialization" name="specialization">
+    
+        <label for="schedule">Schedule:</label>
+        <textarea id="schedule" name="schedule"></textarea>
+    
+        <button type="submit">Update Profile</button>
+    </form>
+</div>     
+<script>
+    document.getElementById('updateDoctorForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const data = {
+            name: document.getElementById('name').value,
+            specialization: document.getElementById('specialization').value,
+            schedule: document.getElementById('schedule').value
+        };
+    try{
+        const response = await fetch('/doctor/update/doctorId', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        if (response.ok) {
+                        alert('Doctor updated successfully');
+                    } else {
+                        alert('Error updating doctor');
+                    }
+    }catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
+    });
+    </script>
+        
+</body>
+</html>

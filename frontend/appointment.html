@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patients appointment booking</title>
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+
+
+     <div class="form-container">
+        <h2>Book an Appointment</h2>
+        <form id="appointment-form">
+          <label for="patient_id">patient_id</label>
+          <input type="number" id="patient_id" name="patient_id" required>
+        
+          <label for="doctor">Select Doctor:</label>
+          <select id="doctor_id" name="doctor_id" required>
+              <option value="">Choose a doctor</option>
+              <!-- Options will be populated here -->
+          </select>
+  
+          <label for="appointment-date">Appointment Date</label>
+          <input type="date" id="appointment_date" name="date" required>
+      
+          <label for="appointment-time">Appointment Time</label>
+          <input type="time" id="appointment_time" name="time" required>
+      
+          <button type="submit">Book Appointment</button>
+    
+        </form>
+        <button onclick="window.location.href='appoint-reschedule.html'">Reschedule Appointment</button>
+        <button onclick="window.location.href='appoint-cancel.html'">Cancel Appointment</button>
+       
+            
+    </div>
+
+    <script src="./js/script.js"></script>      
+  <script>
+    async function populateDoctors() {
+        try {
+            const response = await fetch('/auth/get-Doctors'); // Adjust path as needed
+            const doctors = await response.json();
+
+            const doctorSelect = document.getElementById('doctor_id');
+            doctors.forEach(doctor => {
+                const option = document.createElement('option');
+                option.value = doctor.doctor_id;
+                option.textContent = doctor.name; // or `doctor.specialization` if you want to display specialization
+                doctorSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Error fetching doctors:', error);
+        }
+    }
+
+    // Call the function when the page loads
+    document.addEventListener('DOMContentLoaded', populateDoctors);
+
+
+  </script>
+    
+  </body>
+  </html>

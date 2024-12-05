@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Login</title>
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+
+    
+  <div class="form-container">
+  
+    <!-- Patient Login Form -->
+    <h2>Sign up</h2>
+    <form id="signup-form">
+      <label for="signupEmail">Email</label>
+      <input type="email" id="signupEmail" name="signupEmail" required>
+
+      <label for="signupPassword">Password</label>
+      <input type="password" id="signupPassword" name="signupPassword" required>
+
+      <button type="submit">Sign Up</button>
+    </form>
+  
+
+
+  </div>    
+  <script>
+    // Handle login
+    document.getElementById('signup-form').addEventListener('submit', async function (event) {
+      event.preventDefault(); // Prevent the default form submission
+      const formData ={
+        signupEmail : document.getElementById('signupEmail').value,
+        signupPassword : document.getElementById('signupPassword').value
+      };
+    
+      try {
+        const response = await fetch('/auth/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData),
+        });
+    
+        if (response.ok) {
+                alert('Signed up successfully');
+            } else {
+                alert('Error signing up');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        }
+    });
+
+
+  </script>
+    
+</body>
+</html>

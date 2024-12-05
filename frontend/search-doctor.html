@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Registration </title>
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+
+    
+  <div class="form-container">
+    
+    <form id="searchDoctorsForm">
+        <h2>Search Doctors</h2>
+        <label for="specialization">Specialization:</label>
+        <input type="text" id="specialization" name="specialization">
+    
+        <button type="submit">Search</button>
+    </form>
+
+    </div>
+
+    <script>
+        document.getElementById('searchDoctorsForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const params = new URLSearchParams({ specialization: event.target.specialization.value });
+        
+            const response = await fetch(`/search-doctors?${params.toString()}`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const result = await response.json();
+            console.log(result);  // Handle the result (e.g., display search results)
+        });
+    </script>    
+</body>
+</html>
